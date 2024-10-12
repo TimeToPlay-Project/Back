@@ -16,6 +16,18 @@ const TestController = {
         res.json(test);
     },
 
+    async getTestByTestClassId(req,res){
+        const result = await testService.getTestByTestClassId(req.params.testClassId);
+        res.json(result);
+    },
+
+    async TestAnswerSubmit(req,res){
+        const resultData = req.body;
+        const result = await testService.TestAnswerSubmit(resultData);
+        res.json(result);
+    },
+
+
 
 
     

@@ -39,71 +39,112 @@ const testService = {
         });
     },
 
-    async getQuizzes(QuizClassId, Number){
+    async getTestByTestClassId(TestClassId) {
         return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM quizzes WHERE quizClassId = ?', [QuizClassId],(err, results) => {
+            db.query('SELECT * FROM tests WHERE testclassesId = ?', [TestClassId], (err, results1) => {
                 if (err) {
-                    console.error('Error fetching quiz classes:', err);
-                    reject(err);
-                } else {
-
-                
-
-                    if (results.length === 0) {
-                        return []; 
-                    }
-                    
-                    function shuffleArray(array) {
-                        for (let i = array.length - 1; i > 0; i--) {
-                            const j = Math.floor(Math.random() * (i + 1));
-                            [array[i], array[j]] = [array[j], array[i]]; 
-                        }
-                        return array;
-                    }
-                                
-                  
-                    const randomQuizzes = shuffleArray(results).slice(0, Number);
-                    
-                    resolve(randomQuizzes);     
+                    console.error('Error fetching tests:', err);
+                    return reject(err);
                 }
-            });
-        });
-    },
-
-    async submitResults(resultData) {
-        return new Promise((resolve, reject) => {
-            console.log('Received resultData:', resultData);
-            const { answerNumber, quizClassId } = resultData; 
-            
-            const query = 'INSERT INTO ttp.quizResults (answerNumber, quizClassId) VALUES (?, ?)';
-            const query2 = 'SELECT * FROM quizResults WHERE quizClassId = ?';
-            
-            db.query(query, [answerNumber, quizClassId], (err, results) => {
-                if (err) {
-                    console.error('Error inserting quiz results:', err);
-                    return reject(err); 
-                } 
     
-                db.query(query2, [quizClassId], (err, res) => {
+                db.query('SELECT * FROM testanswers', (err, results2) => {
                     if (err) {
-                        console.error('Error fetching quiz results:', err);
-                        return reject(err); 
-                    } 
-          
-    
-                    let sum = 0;
-                    for(let i=0; i<res.length; i++){
-                        sum += res[i].answerNumber;
+                        console.error('Error fetching test answers:', err);
+                        return reject(err);
                     }
-   
-                    const av = sum/res.length;
-
-                    
-                    resolve(av); 
+    
+                   
+                    const combinedArray = results1.map((question) => ({
+                        id: question.id,
+                        question: question.question,
+                        imageUrl: question.imageUrl,
+                        answers: results2
+                            .filter(answer => answer.testId === question.id) 
+                            .map(answer => ({
+                                id: answer.id,
+                                answer: answer.answer,
+                                type: answer.type,
+                            })),
+                    }));
+    
+                    resolve(combinedArray);
                 });
             });
         });
     },
+    
+
+    async TestAnswerSubmit(resultData) {
+        return new Promise((resolve, reject) => {
+            console.log('Received resultData:', resultData);
+            const { id, answers } = resultData; 
+    
+            const query = 'SELECT * FROM testResults';
+            
+            db.query(query, (err, results) => {
+                if (err) {
+                    console.error('Error fetching test results:', err);
+                    return reject(err); 
+                } 
+    
+        
+                const wordCount = {};
+    
+    
+                answers.forEach(answer => {
+                
+                    const words = answer.split(',').map(word => word.trim());
+                    
+                    words.forEach(word => {
+                
+                        if (wordCount[word]) {
+                            wordCount[word]++;
+                        } else {
+                            wordCount[word] = 1;
+                        }
+                    });
+                });
+    
+                // 가장 많이 중복된 단어 찾기
+                const getMostFrequentWord = (wordCount) => {
+                    let maxCount = 0;
+                    let mostFrequentWord = '';
+                    
+                    for (const word in wordCount) {
+                        if (wordCount[word] > maxCount) {
+                            maxCount = wordCount[word];
+                            mostFrequentWord = word;
+                        }
+                    }
+                    
+                    return mostFrequentWord;
+                };
+    
+           
+                const mostFrequentWord = getMostFrequentWord(wordCount);
+                console.log('Most frequent word:', mostFrequentWord);
+            
+
+
+                
+                // 최빈도 단어와 같은 type 값을 가진 결과 찾기
+                const matchingResult = results.find(result => result.type === mostFrequentWord);
+
+              
+    
+                if (matchingResult) {
+                    const res = [matchingResult.result, matchingResult.resultDescription, matchingResult.imageUrl];
+                    resolve(res); 
+                } else {
+                    console.log("No matching result found.");
+                    resolve(null); 
+                }
+            });
+        });
+    },
+    
+    
+    
 
     async getResults(QuizClassId, answerNum) {
         return new Promise((resolve, reject) => {
