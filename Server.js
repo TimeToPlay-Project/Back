@@ -1,10 +1,12 @@
 const express = require('express');
+const session = require('express-session') 
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors'); 
 const quizRoutes = require('./src/Routes/QuizRoute');
 const testRoutes = require('./src/Routes/TestRoute');
 const tournamentRoutes = require('./src/Routes/TournamentRoute');
+const userRoutes = require('./src/Routes/UserRoute');
 const sequelize = require('./src/Config/db2'); 
 
 const app = express();
@@ -21,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', quizRoutes);
 app.use('/api', testRoutes);
 app.use('/api/tournament', tournamentRoutes);
+app.use('/api/user', userRoutes);
 
 
 
