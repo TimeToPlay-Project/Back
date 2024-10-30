@@ -9,10 +9,9 @@ const tournamentRoutes = require('./src/Routes/TournamentRoute');
 const userRoutes = require('./src/Routes/UserRoute');
 const sequelize = require('./src/Config/db2'); 
 const dotenv = require('dotenv');
-const multer = require('multer');
+
 
 const app = express();
-const upload = multer({ dest: 'uploads/' }); 
 dotenv.config();
 
 

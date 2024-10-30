@@ -35,7 +35,7 @@ const quizService = {
             
                     resolve(quizClassImageUrl);
                 }
-            });
+            }); 
         });
     },
 
@@ -75,16 +75,16 @@ const quizService = {
             console.log('Received resultData:', resultData);
             const { answerNumber, quizClassId } = resultData; 
             
-            const query = 'INSERT INTO ttp.quizResults (answerNumber, quizClassId) VALUES (?, ?)';
-            const query2 = 'SELECT * FROM quizResults WHERE quizClassId = ?';
+            const InsertQuizResults = 'INSERT INTO ttp.quizResults (answerNumber, quizClassId) VALUES (?, ?)';
+            const SelectQuizResultsFromQuizClassId = 'SELECT * FROM quizResults WHERE quizClassId = ?';
             
-            db.query(query, [answerNumber, quizClassId], (err, results) => {
+            db.query(InsertQuizResults, [answerNumber, quizClassId], (err, results) => {
                 if (err) {
                     console.error('Error inserting quiz results:', err);
                     return reject(err); 
                 } 
     
-                db.query(query2, [quizClassId], (err, res) => {
+                db.query(SelectQuizResultsFromQuizClassId, [quizClassId], (err, res) => {
                     if (err) {
                         console.error('Error fetching quiz results:', err);
                         return reject(err); 
