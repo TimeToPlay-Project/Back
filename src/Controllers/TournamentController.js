@@ -1,21 +1,27 @@
 const tournamentService = require('../Services/TournamentService');
 
 const tournamentController = {
-    async getTournaments(req, res) {
+    async fetchTournaments(req, res) {
         const tournaments = await tournamentService.getTournaments();
         res.json(tournaments);
     },
 
-    async getTournamentCounts(req, res) {
+    async fetchTournamentStartData(req, res) {
         const { tournamentId } = req.params;
-        console.log('request getTournamentCounts:', tournamentId);
+        console.log('request getTournamentStartData:', tournamentId);
 
-        const counts = await tournamentService.getTournamentCountOptions(tournamentId);
+        try {
+            const tournament = await tournamentService.getTournament(tournamentId);
+            const counts = await tournamentService.getTournamentCountOptions(tournamentId);
 
-        res.json(counts);
+            res.json({ 'tournament': tournament, 'counts': counts });
+        } catch (error) {
+            console.error('Error in getTournamentStartData:', error);
+            res.status(500).json({ error: 'Failed to fetch tournament data' });
+        }
     },
 
-    async getTournamentImages(req, res) {
+    async fetchTournamentImages(req, res) {
         const { tournamentId, count } = req.params;
         console.log('request getTournamentImages:', tournamentId, count);
 
@@ -27,7 +33,7 @@ const tournamentController = {
         res.json(imageUrls);
     },
 
-    async getTournamentRanking(req, res) {
+    async fetchTournamentRanking(req, res) {
         const { tournamentId } = req.params;
         console.log('request getTournamentRanking:', tournamentId);
 
