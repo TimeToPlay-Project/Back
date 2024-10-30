@@ -8,18 +8,60 @@ const testRoutes = require('./src/Routes/TestRoute');
 const tournamentRoutes = require('./src/Routes/TournamentRoute');
 const userRoutes = require('./src/Routes/UserRoute');
 const sequelize = require('./src/Config/db2'); 
+const dotenv = require('dotenv');
+const multer = require('multer');
 
 const app = express();
+const upload = multer({ dest: 'uploads/' }); 
+dotenv.config();
 
 
 
-// 미들웨어 설정
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
+app.use(cors({
+        origin : "http://localhost:3000",
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        credentials: true,
+    })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// 라우트 설정
+
+//session 설정 
+
+app.use(session({
+    name: "session_ID",
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000,
+        httpOnly: false,
+        secure: false,
+    }
+}))
+
+app.use("/", (req, res, next) =>{
+    try{
+        if(req.session.views){
+            req.session.views++;
+        }
+        else{
+            req.session.views = 1;
+        }
+        console.log('session Info', req.session);
+        next();
+    }
+    catch(error){
+        console.error(error);
+        next(error);
+    }
+})
+
+
+
+
 app.use('/api', quizRoutes);
 app.use('/api', testRoutes);
 app.use('/api/tournament', tournamentRoutes);

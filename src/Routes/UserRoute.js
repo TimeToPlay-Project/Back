@@ -4,6 +4,7 @@ const router = express.Router();
 
 
 router.post("/LoginIdCheck", userController.LoginIdCheck);
+router.get("/session", userController.Session)
 
 
 
