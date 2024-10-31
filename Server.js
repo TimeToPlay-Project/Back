@@ -6,13 +6,12 @@ const cors = require('cors');
 const quizRoutes = require('./src/Routes/QuizRoute');
 const testRoutes = require('./src/Routes/TestRoute');
 const tournamentRoutes = require('./src/Routes/TournamentRoute');
+const quizEditorRoute = require('./src/Routes/QuizEditorRoute');
+const testEditorRoute = require('./src/Routes/TestEditorRoute');
 const tournamentEditorRoute = require('./src/Routes/TournamentEditorRoute');
 const userRoutes = require('./src/Routes/UserRoute');
 const sequelize = require('./src/Config/db2'); 
 const dotenv = require('dotenv');
-const quizEditorRoute = require('./src/Routes/QuizEditorRoute');
-const testEditorRoute = require('./src/Routes/TestEditorRoute');
-
 
 const app = express();
 dotenv.config();
