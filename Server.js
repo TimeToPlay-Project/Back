@@ -6,9 +6,12 @@ const cors = require('cors');
 const quizRoutes = require('./src/Routes/QuizRoute');
 const testRoutes = require('./src/Routes/TestRoute');
 const tournamentRoutes = require('./src/Routes/TournamentRoute');
+const tournamentEditorRoute = require('./src/Routes/TournamentEditorRoute');
 const userRoutes = require('./src/Routes/UserRoute');
 const sequelize = require('./src/Config/db2'); 
 const dotenv = require('dotenv');
+const quizEditorRoute = require('./src/Routes/QuizEditorRoute');
+const testEditorRoute = require('./src/Routes/TestEditorRoute');
 
 
 const app = express();
@@ -64,6 +67,9 @@ app.use("/", (req, res, next) =>{
 app.use('/api', quizRoutes);
 app.use('/api', testRoutes);
 app.use('/api/tournament', tournamentRoutes);
+app.use('/api/editor/quiz', quizEditorRoute);
+app.use('/api/editor/test', testEditorRoute);
+app.use('/api/editor/tournament', tournamentEditorRoute);
 app.use('/api/user', userRoutes);
 
 
