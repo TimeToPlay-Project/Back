@@ -20,12 +20,13 @@ const tournamentEditorController = {
         console.log("updateTournamentEditData:", tournamentId);
     
         const tournamentData = JSON.parse(req.body.tournamentData);
-        
         const thumbnailFile = req.files['thumbnail'] ? req.files['thumbnail'][0] : null;
+        const imageFileMap = JSON.parse(req.body.imageFileMap);
         const imageFiles = req.files['images'] || [];
     
         console.log("tournamentData:", tournamentData);
         console.log("thumbnailFile:", thumbnailFile);
+        console.log("imageFileMap:", imageFileMap);
         console.log("imageFiles:", imageFiles);
     
         res.status(200).json({ message: "updateTournamentEditData" });
