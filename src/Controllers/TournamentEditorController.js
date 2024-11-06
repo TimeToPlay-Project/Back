@@ -25,8 +25,7 @@ const tournamentEditorController = {
         const imageFiles = req.files['images'] || [];
     
         console.log("tournamentData:", tournamentData);
-        console.log("thumbnailFile:", thumbnailFile);
-        console.log("imageFiles:", imageFiles);
+        
     
         res.status(200).json({ message: "updateTournamentEditData" });
     }
