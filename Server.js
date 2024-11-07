@@ -12,6 +12,8 @@ const tournamentEditorRoute = require('./src/Routes/TournamentEditorRoute');
 const userRoutes = require('./src/Routes/UserRoute');
 const sequelize = require('./src/Config/db2'); 
 const dotenv = require('dotenv');
+global.appRoot = require('path').resolve(__dirname);
+
 
 const app = express();
 dotenv.config();

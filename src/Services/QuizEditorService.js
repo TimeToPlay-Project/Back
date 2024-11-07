@@ -1,6 +1,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const db = require('../Config/db');
+const { rejects } = require('assert');
 
 const quizEditorService = {
 
@@ -45,6 +46,61 @@ const quizEditorService = {
 
 
         })
+    },
+
+    async editQuiz(quizData,quizClassFile,quizzesFiles){
+        return new Promise((resolve, rejects) =>{
+
+
+            
+
+            const quizClass = quizData.quizClass;
+            const quizzes = quizData.quizzes;
+
+           
+
+            const quizClassUpdateQuery = `
+                                            UPDATE QuizClass
+                                            SET description = ?, title = ?, imageUrl = ?
+                                            WHERE id = ?;`;
+
+            const quizzesUpdateQuery =  `
+                                            UPDATE Quizzes
+                                            SET description = ?, title = ?, imageUrl = ?
+                                            WHERE id = ?;`;
+                                            
+
+        
+               
+
+            if(quizClass){
+                const {title, description} = quizClass;
+                db.query(quizClassUpdateQuery, [], (err,quizClassUpdateResult) =>{
+                    if(err){
+
+                    }
+                    else{
+
+                    }
+                })
+            }
+            quizzes.forEach((quiz) =>{
+                const {answer} = quiz;
+
+                db.query(quizzesUpdateQuery, [], (err, quizzesUpdateResult) => {
+                    if(err){
+    
+                    }
+                    else{
+    
+                        
+                    }
+    
+    
+            })
+                 
+            })
+    })    
     }
 
 

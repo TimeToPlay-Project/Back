@@ -26,6 +26,33 @@ const UserService = {
                 }
             })
         })
+    },
+
+    async Login(loginInfo){
+        return new Promise((resovle,reject) =>{
+            const {loginId, loginPW} = loginInfo;
+
+            
+            db.query("SELECT * from user WHERE loginId = ?",[loginId], (err, result) => {
+                if(err){
+                    console.error('Error fetching quiz classes:', err);
+                    reject(err);
+                }
+                else{
+
+
+                    if(result[0].password === loginPW){
+                        
+                        resovle(200);
+                    }
+                    else{
+                        resovle(400);
+                    }
+
+                }
+            })
+
+        })
     }
 
 

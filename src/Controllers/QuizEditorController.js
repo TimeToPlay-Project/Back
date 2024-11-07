@@ -40,30 +40,51 @@ const quizEditorController = {
     },
 
     async quizEditUpdate(req, res){
-        const Q = req.body;
-
-        console.log(Q);
+       
 
         
 
-    const images = req.files['images'] || []; // 업로드된 이미지 파일 배열
-    const thumbnail = req.files['thumbnail'] || [];
-    const imageIds = req.body.imageIds ? req.body.imageIds : []; // 이미지 ID 배열
+    const quizData = JSON.parse(req.body.quizData);
+    const quizClassFile = req.files['quizClass'] ? req.files['quizClass'][0] : null;
+    const quizzesFiles = req.files['quizzes'] || [];
+    const quizzesIdInfo = req.body.quizzesIdInfo ? JSON.parse(req.body.quizzesIdInfo) : [];
+
+    // const quizzesData = quizzesIdInfo.map((file, index) => {
+    //     const fileData = JSON.parse(file.buffer.toString());  
+    //     return {
+    //         file: file,  
+    //         id: fileData.id,  
+    //     };
+    // });
+
+
+    // console.log("quizData : " + JSON.stringify(quizData, null, 2));
+
+
+    
+    console.log(quizData);
+    console.log("quizzesIdiInfo : " , quizzesIdInfo);
+  console.log("quizClass : ",quizClassFile);
+  console.log("quizzes : " , quizzesFiles);
+
+    // console.log("quizClass File : " , quizClassFile);
+    // console.log("quizzes File : " , quizzesFiles);
+
+    // try{
+        const updateState = await quizEditorService.editQuiz(quizData,quizClassFile,quizzesFiles);
+    // }
+    // catch(err){
+
+    // }
+
 
   
-    const fileIdMap = images.map((file, index) => ({
-        id: imageIds[index], // ID는 imageIds 배열에서 가져옴
-        filename: file.filename // 파일명
-    }));
+  
 
 
     
 
-    console.log("Uploaded Images with IDs:", fileIdMap);
-    if(thumbnail[0]){
-        console.log("Uploaded Images with th:", thumbnail[0].filename);
-    }
-    res.send("s");
+    res.status(200).json("success");
 
     }
     

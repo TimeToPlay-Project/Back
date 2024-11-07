@@ -6,7 +6,6 @@ const path = require('path');
 
 
 
-let firstUploadFileState = false;
 
 
 const storage = multer.diskStorage({
@@ -14,16 +13,14 @@ const storage = multer.diskStorage({
     destination: function (req, file, cb) {
 
 
-        const uploadPath = !firstUploadFileState ? 'uploads/' : 'uploads2/';
-        firstUploadFileState = true;
-
+        const uploadPath = 'uploads/' ;
 
         cb(null, uploadPath);
     },
 
     filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + path.extname(file.originalname);
-        cb(null, file.fieldname + '-' + uniqueSuffix);
+       
+        cb(null, file.originalname);
     }
 
 
@@ -32,14 +29,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const uploadFields = upload.fields([
-    { name: 'thumbnail', maxCount: 1 },
-    { name: 'images' }
-]);
+
 
 
 router.get('/:quizId', quizEditorController.getQuizEditData);
-router.post('/submit/:id', uploadFields, quizEditorController.quizEditUpdate);
+router.post('/submit/:id', upload.fields([
+    { name: 'quizClass'},
+    { name: 'quizzes'}
+]), quizEditorController.quizEditUpdate);
 
 
 
