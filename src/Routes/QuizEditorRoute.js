@@ -33,7 +33,7 @@ const upload = multer({ storage: storage });
 
 
 router.get('/:quizId', quizEditorController.getQuizEditData);
-router.post('/submit/:id', upload.fields([
+router.post('/submit/:quizClassId', upload.fields([
     { name: 'quizClass'},
     { name: 'quizzes'}
 ]), quizEditorController.quizEditUpdate);
