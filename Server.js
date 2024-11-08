@@ -15,7 +15,7 @@ const dotenv = require('dotenv');
 
 const app = express();
 dotenv.config();
-
+global.appRoot = require('path').resolve(__dirname);
 
 
 app.use(express.static(path.join(__dirname, 'public')));
