@@ -43,7 +43,7 @@ const quizEditorController = {
        
 
         
-    const quizClassId = req.params;
+    const {quizClassId} = req.params;
     const quizData = JSON.parse(req.body.quizData);
     const quizClassFile = req.files['quizClass'] ? req.files['quizClass'][0] : null;
     const quizzesFiles = req.files['quizzes'] || [];
@@ -54,21 +54,23 @@ const quizEditorController = {
 
 
 
-    // try{
-        const updateState = await quizEditorService.editQuiz(quizClassId,quizData,quizClassFile,quizzesFiles,quizzesIdInfo);
-    // }
-    // catch(err){
 
-    // }
+    const updateState = await quizEditorService.editQuiz(quizClassId,quizData,quizClassFile,quizzesFiles,quizzesIdInfo);
+    console.log(updateState);
+    
+    if(updateState === 200){
+        res.status(200).json("success");
+    }
+    else{
+        res.status(400).json("fail");
+    }
+  
 
 
 
 
 
 
-
-
-    res.status(200).json("success");
 
     }
     

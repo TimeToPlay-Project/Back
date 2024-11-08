@@ -53,7 +53,7 @@ app.use("/", (req, res, next) =>{
         else{
             req.session.views = 1;
         }
-        console.log('session Info', req.session);
+        // console.log('session Info', req.session);
         next();
     }
     catch(error){
