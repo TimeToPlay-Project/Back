@@ -23,9 +23,20 @@ const UserController = {
         const loginInfo = req.body;
         const LoginResult = await UserService.Login(loginInfo);
         console.log("req : " + LoginResult);
-        if(LoginResult === 200){
+        if(LoginResult[0] === 200){
+
+            req.session.save(()=>{
+                req.session.user = {
+                    loginId : LoginResult[1],
+                    password : LoginResult[2]
+                }
+
+                const data = req.session;
+        })
             res.status(200).json("success");
         }
+            
+        
         else{
             res.status(400).json("fail");
         }
