@@ -56,6 +56,32 @@ const tournamentEditorController = {
             console.error('Error in createTournamentEditData: ', error);
             res.status(500).json({message: error});
         }
+    },
+
+    async checkTournamentImageExist(req, res) {
+        const { tournamentId, tournamentImageId } = req.params;
+        try {
+            const isImageExist = await tournamentEditorService.checkImageExist(tournamentId, tournamentImageId);
+            console.log(isImageExist);
+        } catch (error) {
+            console.error('Error in checkImageExist: ', error);
+            res.status(500).json({message: "check image error"});
+        }
+    },
+
+    async deleteTournamentImageData(req, res) {
+        const { tournamentImageId } = req.params;
+        try {
+            const isImageDelete = await tournamentEditorService.deleteTournamentImage(tournamentImageId);
+            if (isImageDelete) {
+                res.status(200).json({message: "delete image success"});
+            } else {
+                res.status(500).json({message: "delete image failed"});
+            }
+        } catch (error) {
+            console.error('Error in deleteTournamentImageData: ', error);
+            res.status(500).json({message: "delete image error"});
+        }
     }
     
 }

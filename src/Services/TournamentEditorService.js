@@ -160,6 +160,32 @@ const tournamentEditorService = {
             throw new Error(`Error in createTournament: ${error.message}`);
         }
     },
+
+    async deleteTournamentImage(tournamentImageId) { 
+        try {
+            const deleteTournamentImageQuery = "DELETE FROM tournament_image WHERE id=?";
+            const result = await dbQuery(deleteTournamentImageQuery, tournamentImageId);
+            return result.affectedRows > 0;
+        } catch (error) {
+            throw new Error(`Error in deleteTournamentImage: ${error.message}`);
+        }
+    },
+
+    async checkImageExist(tournamentId, checkImageId) {
+        try {
+            const selectTournamentImageQuery = "SELECT id FROM tournament_image WHERE tournament_id=?";
+            const existingTournamentImages = await dbQuery(selectTournamentImageQuery, tournamentId);
+            const existingTournamentImageIds = existingTournamentImages.map(image => image.id);
+            if (existingTournamentImageIds.includes(Number(checkImageId))) {
+                return true;
+            } else {
+                return false
+            }
+
+        } catch (error) {
+            throw new Error(`Error in checkImageExist: ${error.message}`);
+        }
+    }
 }
 
 module.exports = tournamentEditorService;
