@@ -1,7 +1,8 @@
 const path = require('path');
 const db = require('../Config/db');
 const { rejects } = require('assert');
-const fs = require('fs').promises;
+const fs = require('fs');
+const fsp = require('fs').promises;
 
 function dbQuery(query, params) {
   return new Promise((resolve, reject) => {
@@ -73,11 +74,11 @@ const quizEditorService = {
         const newQuizId = insertQuizResults.insertId;
         const tmpDir = path.join(global.appRoot, 'tmp');
         const quizDir = path.join(global.appRoot, 'public', 'images', 'quiz', newQuizId.toString());
-        await fs.mkdir(quizDir, { recursive: true });
+        await fsp.mkdir(quizDir, { recursive: true });
 
         if(quizClassFile){
           const targetPath = path.join(quizDir, quizClassFile.filename);
-          await fs.rename(quizClassFile.path, targetPath);
+          await fsp.rename(quizClassFile.path, targetPath);
           const imageUrl = `images/quiz/${newQuizId}/${quizClassFile.filename}`;
 
           const updateQuizQuery = "UPDATE quizclasses SET imageUrl=? WHERE id=?";
@@ -94,7 +95,7 @@ const quizEditorService = {
             const quizFileName = quizzesFiles[quizIndex];
             const tmpPath = path.join(tmpDir, quizFileName.filename);
             const targetPath = path.join(quizDir, quizFileName.filename);
-            await fs.rename(tmpPath, targetPath);
+            await fsp.rename(tmpPath, targetPath);
 
             imageUrl = `images/quiz/${newQuizId}/${quizFileName.filename}`;
           }

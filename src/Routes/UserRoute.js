@@ -5,9 +5,11 @@ const router = express.Router();
 
 //  '/api/user'
 
+router.get("/check-login", userController.checkLogin);
+
 router.post("/LoginIdCheck", userController.LoginIdCheck);
-router.get("/session", userController.Session)
-router.post("/login", userController.Login)
+router.post("/login", userController.Login);
+router.post("/logout", userController.Logout);
 
 
 

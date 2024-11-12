@@ -43,10 +43,10 @@ const UserService = {
 
                     if(result[0].password === loginPW){
                         
-                        resovle(200);
+                        resovle(result[0]);
                     }
                     else{
-                        resovle(400);
+                        resovle(null);
                     }
 
                 }
