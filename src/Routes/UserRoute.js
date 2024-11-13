@@ -10,6 +10,7 @@ router.get("/check-login", userController.checkLogin);
 router.post("/LoginIdCheck", userController.LoginIdCheck);
 router.post("/login", userController.Login);
 router.post("/logout", userController.Logout);
+router.post("/join", userController.join);
 
 
 
