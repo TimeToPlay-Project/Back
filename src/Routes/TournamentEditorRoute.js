@@ -33,7 +33,9 @@ tournamentEditorRoute.post(
     tournamentEditorController.createTournamentEditData
 );
 
-tournamentEditorRoute.get('/delete/:tournamentImageId', tournamentEditorController.deleteTournamentImageData);
+tournamentEditorRoute.get('/delete/:tournamentId', tournamentEditorController.deleteTournamentData);
+
+tournamentEditorRoute.get('/delete/image/:tournamentImageId', tournamentEditorController.deleteTournamentImageData);
 
 tournamentEditorRoute.get('/exist/:tournamentId/:tournamentImageId', tournamentEditorController.checkTournamentImageExist);
 

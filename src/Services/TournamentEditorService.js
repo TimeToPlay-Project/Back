@@ -161,6 +161,18 @@ const tournamentEditorService = {
         }
     },
 
+    async deleteTournament(tournamentId) {
+        try {
+            const deleteTournamentImageQuery = "DELETE FROM tournament_image WHERE tournament_id=?"
+            const deleteTournamentImageResult = await dbQuery(deleteTournamentImageQuery, tournamentId);
+            const deleteTournamentQuery = "DELETE FROM tournament WHERE id=?";
+            const result = await dbQuery(deleteTournamentQuery, tournamentId);
+            return result.affectedRows;
+        } catch (error) {
+            throw new Error(`Error in deleteTournament: ${error.message}`);
+        }
+    },
+
     async deleteTournamentImage(tournamentImageId) { 
         try {
             const deleteTournamentImageQuery = "DELETE FROM tournament_image WHERE id=?";

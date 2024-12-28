@@ -63,9 +63,25 @@ const tournamentEditorController = {
         try {
             const isImageExist = await tournamentEditorService.checkImageExist(tournamentId, tournamentImageId);
             console.log(isImageExist);
+            res.status(500).json({isExist: isImageExist});
         } catch (error) {
             console.error('Error in checkImageExist: ', error);
             res.status(500).json({message: "check image error"});
+        }
+    },
+
+    async deleteTournamentData(req, res) {
+        const { tournamentId } = req.params;
+        try {
+            const isDelete = await tournamentEditorService.deleteTournament(tournamentId);
+            if (isDelete) {
+                res.status(200).send("삭제되었습니다.");
+            } else {
+                res.status(500).send("잘못된 요청입니다. id:", tournamentId);
+            }
+        } catch (error) {
+            console.error('Error in deleteTournament: ', error);
+            res.status(500).send("잘못된 요청입니다.");
         }
     },
 
