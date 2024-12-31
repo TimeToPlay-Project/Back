@@ -20,7 +20,7 @@ global.appRoot = require('path').resolve(__dirname);
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
-        origin : "http://localhost:3000",
+        origin : "http://52.78.84.39:3000",
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true,
     })
