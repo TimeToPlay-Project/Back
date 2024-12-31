@@ -1,8 +1,8 @@
 const { Sequelize } = require('sequelize');
 
 // Sequelize 인스턴스 생성
-const sequelize = new Sequelize('TTP', 'root', 'root', {
-    host: 'localhost',
+const sequelize = new Sequelize('TTP', 'admin', 'timetoplay', {
+    host: 'database-1.c9uui8asw6eb.ap-northeast-2.rds.amazonaws.com',
     dialect: 'mysql',
 });
 
