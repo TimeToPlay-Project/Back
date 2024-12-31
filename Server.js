@@ -22,6 +22,17 @@ const app = express();
 
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+// 리액트 앱의 빌드 폴더를 서빙
+app.use(express.static(path.join(__dirname, 'build')));
+
+// 모든 요청에 대해 빌드된 index.html을 서빙
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+
+
 app.use(cors({
     origin: "http://localhost:3000",
     methods: ['GET', 'POST', 'PUT', 'DELETE'],

@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ef37b311.css",
+    "main.js": "/static/js/main.ba362bc8.js",
+    "static/media/image.png": "/static/media/image.7db98f59da3bae181475.png",
+    "static/media/liar-icon.svg": "/static/media/liar-icon.b22df1992386675551094a8c364256f5.svg",
+    "index.html": "/index.html",
+    "main.ef37b311.css.map": "/static/css/main.ef37b311.css.map",
+    "main.ba362bc8.js.map": "/static/js/main.ba362bc8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ef37b311.css",
+    "static/js/main.ba362bc8.js"
+  ]
+}
