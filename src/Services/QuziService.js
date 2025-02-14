@@ -21,6 +21,20 @@ const quizService = {
         });
     },
 
+    async getQuizClass(QuizClassId) {
+        return new Promise((resolve, reject) => {
+            db.query('select * from quizclasses WHERE id = ?', [QuizClassId], (err, results) => {
+                if (err) {
+                    console.error('error fetching quiz classes:', err);
+                    reject(err);
+                } else {
+                    
+                    resolve(results);     
+                }
+            });
+        });
+    },
+
     async getQuizImageUrl(QuizClassId) {
         return new Promise((resolve, reject) => {
             db.query('SELECT * FROM quizclasses WHERE id = ?', [QuizClassId], (err, results) => {

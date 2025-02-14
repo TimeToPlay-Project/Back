@@ -11,6 +11,13 @@ const quizController = {
         
     },
 
+    async getQuizClass(req, res) {
+       
+        const quizs = await quizService.getQuizClass(req.params.id);
+        res.json(quizs);
+        
+    },
+
 
 
     async getAllQuiz(req,res){

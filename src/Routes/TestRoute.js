@@ -6,6 +6,7 @@ const router = express.Router();
 
 
 router.get('/testClass/all', TestController.getAllTestClass);
+router.get('/testClass/get/:id', TestController.getTestClass);
 router.get('/testClass/imageUrl/:id', TestController.getTestImageUrl);
 router.get('/test/:testClassId', TestController.getTestByTestClassId);
 

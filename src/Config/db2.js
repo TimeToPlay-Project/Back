@@ -1,18 +1,23 @@
-const { Sequelize } = require('sequelize');
+// const { Sequelize } = require('sequelize');
 
-// Sequelize 인스턴스 생성
-const sequelize = new Sequelize('TTP', 'admin', 'timetoplay', {
-    host: 'database-1.c9uui8asw6eb.ap-northeast-2.rds.amazonaws.com',
-    dialect: 'mysql',
-});
+// // Sequelize 인스턴스 생성
+// // const sequelize = new Sequelize('TTP', 'admin', 'timetoplay', {
+// //     host: 'database-1.c9uui8asw6eb.ap-northeast-2.rds.amazonaws.com',
+// //     dialect: 'mysql',
+// // });
 
-// 데이터베이스 연결 테스트
-sequelize.authenticate()
-    .then(() => {
-        console.log('데이터 베이스 연결 성공.');
-    })
-    .catch(err => {
-        console.error('데이터 베이스 연결 오류 : ', err);
-    });
+// const sequelize = new Sequelize('TTP', 'admin', 'timetoplay', {
+//     host: 'localhost',
+//     dialect: 'mysql',
+// });
 
-module.exports = sequelize;
+// // 데이터베이스 연결 테스트
+// sequelize.authenticate()
+//     .then(() => {
+//         console.log('데이터 베이스 연결 성공.');
+//     })
+//     .catch(err => {
+//         console.error('데이터 베이스 연결 오류 : ', err);
+//     });
+
+// module.exports = sequelize;

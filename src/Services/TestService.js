@@ -9,7 +9,20 @@ const testService = {
 
     async getAllTestClass() {
         return new Promise((resolve, reject) => {
-            db.query('select * from testclasses', (err, results) => {
+            db.query('select * from testclass', (err, results) => {
+                if (err) {
+                    console.error('error fetching quiz classes:', err);
+                    reject(err);
+                } else {
+                    
+                    resolve(results);     
+                }
+            });
+        });
+    },
+    async getTestClass(TestClassId) {
+        return new Promise((resolve, reject) => {
+            db.query('select * from testclass WHERE id = ?', [TestClassId], (err, results) => {
                 if (err) {
                     console.error('error fetching quiz classes:', err);
                     reject(err);
@@ -23,7 +36,7 @@ const testService = {
 
     async getTestImageUrl(TestClassId) {
         return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM testclasses WHERE id = ?', [TestClassId], (err, results) => {
+            db.query('SELECT * FROM testclass WHERE id = ?', [TestClassId], (err, results) => {
                 if (err) {
                     console.error('Error fetching quiz classes:', err);
                     reject(err);
@@ -41,7 +54,7 @@ const testService = {
 
     async getTestByTestClassId(TestClassId) {
         return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM tests WHERE testclassesId = ?', [TestClassId], (err, results1) => {
+            db.query('SELECT * FROM tests WHERE testclassId = ?', [TestClassId], (err, results1) => {
                 if (err) {
                     console.error('Error fetching tests:', err);
                     return reject(err);

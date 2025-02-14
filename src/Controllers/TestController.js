@@ -10,6 +10,12 @@ const TestController = {
         res.json(tsets);
         
     },
+    async getTestClass(req, res) {
+       
+        const tsets = await testService.getTestClass(req.params.id);
+        res.json(tsets);
+        
+    },
 
     async getTestImageUrl(req,res){
         const test = await testService.getTestImageUrl(req.params.id);

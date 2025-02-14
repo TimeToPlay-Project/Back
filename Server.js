@@ -23,13 +23,13 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 리액트 앱의 빌드 폴더를 서빙
-app.use(express.static(path.join(__dirname, 'build')));
+// // 리액트 앱의 빌드 폴더를 서빙
+// app.use(express.static(path.join(__dirname, 'build')));
 
-// 모든 요청에 대해 빌드된 index.html을 서빙
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+// // 모든 요청에 대해 빌드된 index.html을 서빙
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
 
 
 
@@ -42,19 +42,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.use(session({
-    name: "session_ID",
-    store: redisStore,
-    secret: process.env.SESSION_SECRET || 'mySecretKey',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: 24 * 60 * 60 * 1000,
-        httpOnly: true,
-        secure: false, 
-        path: '/'
-    }
-}));
+// app.use(session({
+//     name: "session_ID",
+//     store: redisStore,
+//     secret: process.env.SESSION_SECRET || 'mySecretKey',
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//         maxAge: 24 * 60 * 60 * 1000,
+//         httpOnly: true,
+//         secure: false, 
+//         path: '/'
+//     }
+// }));
 
 
 
